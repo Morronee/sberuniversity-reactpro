@@ -1,13 +1,12 @@
 import {type Task, type TaskActions, TaskCard} from "entities/task";
-import {FilePlusCorner, Trash} from "lucide-react";
-import {Checkbox} from "shared/ui/Checkbox";
+import {FilePlusCorner} from "lucide-react";
 
 interface IProps {
     data: Task[];
-    actions: TaskActions;
+    onDelete: TaskActions['onClickDelete'];
 }
 
-export const TaskList = ({data, actions}: IProps) => {
+export const TaskList = ({data, onDelete}: IProps) => {
     if (!data || !data.length) {
         return (
             <div className={'flex flex-col items-center justify-center gap-2 text-gray-500'}>
@@ -19,12 +18,7 @@ export const TaskList = ({data, actions}: IProps) => {
 
     return (
         <div className={'flex flex-col gap-2'}>
-            {data.map((task) => <TaskCard key={task.id} data={task}>
-                <Checkbox checked={task.completed}/>
-                <button className={'p-1 cursor-pointer group'} onClick={() => actions.onClickDelete(task.id)}>
-                    <Trash className={'group-hover:text-red-700 transition'} size={18}/>
-                </button>
-            </TaskCard>)}
+            {data.map((task) => <TaskCard key={task.id} data={task} onDelete={onDelete}/>)}
         </div>
     )
 }
