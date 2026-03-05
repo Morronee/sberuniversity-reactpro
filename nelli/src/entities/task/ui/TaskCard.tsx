@@ -2,19 +2,15 @@ import type {Task, TaskActions} from "entities/task";
 import {Checkbox} from "shared/ui/Checkbox";
 import clsx from "clsx";
 import {Trash} from "lucide-react";
+import {memo} from "react";
 
 interface IProps {
     data: Task,
-    actions: TaskActions
+    onDelete: TaskActions["onClickDelete"],
 }
 
-export const TaskCard = ({data, actions}: IProps) => {
-    const {title, completed} = data
-    const {onClickDelete} = actions
-
-    const handleOnClickDelete = () => {
-        onClickDelete(data.id)
-    }
+export const TaskCard = memo(({data, onDelete}: IProps) => {
+    const {title, completed, id} = data
 
     return (
         <div
@@ -23,11 +19,10 @@ export const TaskCard = ({data, actions}: IProps) => {
 
             <div className={'flex gap-2 items-center'}>
                 <Checkbox checked={completed}/>
-                <div className={'p-1 cursor-pointer group'} onClick={handleOnClickDelete}>
+                <button className={'p-1 cursor-pointer group'} onClick={() => onDelete(id)}>
                     <Trash className={'group-hover:text-red-700 transition'} size={18}/>
-                </div>
+                </button>
             </div>
         </div>
-
     )
-}
+})

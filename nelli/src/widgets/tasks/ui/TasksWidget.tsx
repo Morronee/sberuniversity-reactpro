@@ -9,7 +9,7 @@ export const TasksWidget = () => {
         <div className={'w-75'}>
             <FilterButton options={mapFilterToOptions()} value={filter} setValue={setFilter}/>
 
-            <TaskList data={tasks} actions={{onClickDelete: removeTask}}/>
+            <TaskList data={tasks} onDelete={removeTask}/>
         </div>
     )
 }

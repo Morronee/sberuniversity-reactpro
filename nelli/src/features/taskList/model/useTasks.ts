@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import type {Task} from "entities/task";
 
 
@@ -66,9 +66,9 @@ export const useTasks = (): {
     const [tasks, setTasks] = useState<Task[]>(mockTasks);
     const [filter, setFilter] = useState<Filter>('all');
 
-    const removeTask = (id: string) => {
+    const removeTask = useCallback((id: string) => {
         setTasks((prevState) => prevState.filter(task => task.id !== id));
-    }
+    }, [])
 
     const filteredTasks = useMemo(() => {
         switch (filter) {

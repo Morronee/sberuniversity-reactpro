@@ -3,10 +3,10 @@ import {FilePlusCorner} from "lucide-react";
 
 interface IProps {
     data: Task[];
-    actions: TaskActions;
+    onDelete: TaskActions['onClickDelete'];
 }
 
-export const TaskList = ({data, actions}: IProps) => {
+export const TaskList = ({data, onDelete}: IProps) => {
     if (!data || !data.length) {
         return (
             <div className={'flex flex-col items-center justify-center gap-2 text-gray-500'}>
@@ -18,7 +18,7 @@ export const TaskList = ({data, actions}: IProps) => {
 
     return (
         <div className={'flex flex-col gap-2'}>
-            {data.map((task) => <TaskCard key={task.id} data={task} actions={actions}/>)}
+            {data.map((task) => <TaskCard key={task.id} data={task} onDelete={onDelete}/>)}
         </div>
     )
 }
