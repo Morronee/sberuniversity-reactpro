@@ -1,5 +1,6 @@
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import type {Task} from "entities/task";
+import {useGetTasksQuery} from "entities/task/api/tasksApi.ts";
 
 
 export type Filter = 'all' | 'completed' | 'incomplete';
@@ -63,8 +64,16 @@ export const useTasks = (): {
     setFilter: (filter: Filter) => void;
     removeTask: (id: Task['id']) => void;
 } => {
-    const [tasks, setTasks] = useState<Task[]>(mockTasks);
+    const [tasks, setTasks] = useState<Task[]>([]);
     const [filter, setFilter] = useState<Filter>('all');
+
+    const {data: remoteTasks = []} = useGetTasksQuery()
+
+    useEffect(() => {
+        if (remoteTasks.length > 0 && tasks.length === 0) {
+            setTasks(remoteTasks)
+        }
+    }, [remoteTasks]);
 
     const removeTask = useCallback((id: string) => {
         setTasks((prevState) => prevState.filter(task => task.id !== id));
