@@ -1,11 +1,11 @@
 import './App.css'
-import {SignUpPage} from "pages/SignUp";
+import {ClickTimer, DebouncedLogger, FocusTracker, PreviousInput} from "features/refExamples";
 
 function App() {
 
   return (
     <>
-        <SignUpPage />
+        <DebouncedLogger />
     </>
   )
 }
