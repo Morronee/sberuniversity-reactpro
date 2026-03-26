@@ -1,13 +1,10 @@
 import './App.css'
-import {ClickTimer, DebouncedLogger, FocusTracker, PreviousInput} from "features/refExamples";
+import {withProviders} from "app/providers";
+import {AppRouter} from "app/providers/ReactRouter";
 
-function App() {
+export const App = withProviders(() => {
+    return (
+        <AppRouter/>
+    )
+})
 
-  return (
-    <>
-        <DebouncedLogger />
-    </>
-  )
-}
-
-export default App
